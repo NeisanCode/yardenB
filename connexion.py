@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk, messagebox
 
 #NB: j'ai commenté  pour te faciliter la tache en cas de modification
-# Les fonctions qui dynamisent les boutons 
+# Les fonctions qui dynamisent les boutons .
 
 def survol_entree(event):
     event.widget.config(bg="#f9e2af") 
