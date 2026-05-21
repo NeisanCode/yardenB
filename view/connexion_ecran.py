@@ -1,14 +1,15 @@
 import tkinter as tk
 from tkinter import CENTER, messagebox
-from typing import TYPE_CHECKING
-from .gestion_ecran import GestionEcran
 from PIL import Image, ImageTk
+
+from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from .app import App
 
 
 class ConnexionEcran(tk.Frame):
-    def __init__(self, parent: tk.Tk, controller: "App"):
+    def __init__(self, parent: tk.Tk, controller: App):
         super().__init__(parent, bg="#2b2b3b")
         self.controller = controller
         self._build()
@@ -26,11 +27,7 @@ class ConnexionEcran(tk.Frame):
         )
         self.label_titre.place(relx=0.5, y=30, anchor=CENTER)
         self.canvas_photo = tk.Canvas(
-            self.card,
-            width=180,
-            height=180,
-            bg="white",
-            highlightthickness=0
+            self.card, width=180, height=180, bg="white", highlightthickness=0
         )
         self.canvas_photo.place(x=30, y=85)
 
@@ -44,11 +41,7 @@ class ConnexionEcran(tk.Frame):
         self.photo = ImageTk.PhotoImage(img)
 
         # Afficher dans canvas
-        self.canvas_photo.create_image(
-            0, 0,
-            anchor="nw",
-            image=self.photo
-        )
+        self.canvas_photo.create_image(0, 0, anchor="nw", image=self.photo)
         self.lbl_auth = tk.Label(
             self.card,
             text="Authentification",
@@ -110,12 +103,12 @@ class ConnexionEcran(tk.Frame):
         self.btn_annuler = tk.Button(
             self.card,
             text="Annuler",
-            bg="#f38ba8",           # ← fg_color → bg
-            fg="#11111b",           # ← text_color → fg
+            bg="#f38ba8",  # ← fg_color → bg
+            fg="#11111b",  # ← text_color → fg
             font=("Segoe UI", 10, "bold"),
             relief="flat",
             cursor="hand2",
-            activebackground="#f2869d",   # ← hover_color → activebackground
+            activebackground="#f2869d",  # ← hover_color → activebackground
             activeforeground="#11111b",
             command=self.reset_fields,
         )
@@ -125,13 +118,13 @@ class ConnexionEcran(tk.Frame):
             self.card,
             text="✖ Quitter",
             font=("Segoe UI", 10, "bold"),
-            bg="#45475a",               # ← fg_color → bg
-            fg="#f38ba8",               # ← text_color → fg
-            activebackground="#5c5f7a", # ← hover_color → activebackground
+            bg="#45475a",  # ← fg_color → bg
+            fg="#f38ba8",  # ← text_color → fg
+            activebackground="#5c5f7a",  # ← hover_color → activebackground
             activeforeground="#f38ba8",
             relief="flat",
             cursor="hand2",
-            command=self.winfo_toplevel().destroy
+            command=self.winfo_toplevel().destroy,
         )
         self.btn_quitter.place(relx=0.5, y=300, anchor=CENTER, width=300, height=35)
 
@@ -144,6 +137,8 @@ class ConnexionEcran(tk.Frame):
         self.seconnecter()
 
     def seconnecter(self):
+        from .gestion_ecran import GestionEcran
+
         self.controller.show_frame(GestionEcran)
 
     def reset_fields(self):

@@ -21,6 +21,7 @@ class App(ctk.CTk):
             frame = F(container, self)
             self.frames[F] = frame
             frame.place(x=0, y=0, relwidth=1, relheight=1)
+            frame.lower()  # ← cache le frame dès sa création
         self.show_frame(GestionEcran)
 
     def show_frame(self, frame_class):
