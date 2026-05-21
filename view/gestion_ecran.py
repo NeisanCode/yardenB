@@ -5,6 +5,7 @@ from tkinter import ttk, messagebox
 from controllers.eleve_controller import EleveController
 from .utils import styleTreview
 from .datepicker import DatePickerWidget
+from .statistic_popup import StatisticPopup
 
 
 class GestionEcran(ctk.CTkFrame):
@@ -86,6 +87,15 @@ class GestionEcran(ctk.CTkFrame):
             text_color="black",
             font=("Segoe UI", 12, "bold"),
         ).grid(row=1, column=0, columnspan=2, sticky="ew")
+        ctk.CTkButton(
+            recherche_frame,
+            text="Actualiser",
+            command=self.action_actualiser,
+            fg_color="#94e2d5",
+            text_color="black",
+            font=("Segoe UI", 12, "bold"),
+            cursor="hand2",
+        ).grid(row=2, column=0, columnspan=2, sticky="ew", pady=(5, 0))
 
         # Ligne 1 : Prénom | Classe
         lbl("PRÉNOM : ", 1, 0)
@@ -182,6 +192,12 @@ class GestionEcran(ctk.CTkFrame):
                 "color": "#6c7086",
                 "command": self.reinitialiser,
                 "text_color": "white",
+            },
+            {
+                "text": "Stats",
+                "color": "#cba6f7",
+                "command": self.action_statistiques,
+                "text_color": "black",
             },
         ]
 
@@ -368,6 +384,12 @@ class GestionEcran(ctk.CTkFrame):
             return  # ← on ne touche pas au tableau
         self.charger_donnees_depuis_db(donnees_filtrees=resultat)
 
+    def action_actualiser(self):
+        self.charger_donnees_depuis_db()
+
+    def action_statistiques(self):
+        StatisticPopup(self, self.eleve_controller)
+
     def action_afficher(self):
         self.var_recherche.set("")
         self.filtre_recherche.set("Matricule")
@@ -395,4 +417,5 @@ class GestionEcran(ctk.CTkFrame):
 
     def action_retour(self):
         from view.connexion_ecran import ConnexionEcran
+
         self.controller.show_frame(ConnexionEcran)
