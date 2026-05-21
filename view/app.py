@@ -21,7 +21,7 @@ class App(ctk.CTk):
             frame = F(container, self)
             self.frames[F] = frame
             frame.place(x=0, y=0, relwidth=1, relheight=1)
-        self.show_frame(ConnexionEcran)
+        self.show_frame(GestionEcran)
 
     def show_frame(self, frame_class):
         frame = self.frames[frame_class]

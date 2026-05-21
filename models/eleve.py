@@ -13,6 +13,7 @@ class Cycle(Enum):
 
 @dataclass
 class Eleve:
+    id: Optional[int] = None
     nom: str
     prenom: str
     date_naissance: date
@@ -23,6 +24,4 @@ class Eleve:
     matricule: str
     cycle: Cycle
     situation_financiere: str
-    id: Optional[int] = None
     date_inscription: datetime = field(default_factory=datetime.now)
-
