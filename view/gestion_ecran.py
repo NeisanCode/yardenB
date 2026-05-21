@@ -28,9 +28,10 @@ class GestionEcran(ctk.CTkFrame):
 
         # --- TITRE ---
         ctk.CTkLabel(
-            self, text="ENREGISTREMENT DES ÉLÈVES",
+            self,
+            text="ENREGISTREMENT DES ÉLÈVES",
             font=ctk.CTkFont(family="Segoe UI", size=24, weight="bold"),
-            text_color="#89b4fa"
+            text_color="#89b4fa",
         ).pack(pady=15)
 
         # --- FORMULAIRE ---
@@ -39,13 +40,18 @@ class GestionEcran(ctk.CTkFrame):
 
         # Helper functions for grid placement
         def lbl(txt, row, col):
-            ctk.CTkLabel(self.form_frame, text=txt, font=("Segoe UI", 11, "bold")
-                         ).grid(row=row, column=col, padx=10, pady=8, sticky="w")
+            ctk.CTkLabel(self.form_frame, text=txt, font=("Segoe UI", 11, "bold")).grid(
+                row=row, column=col, padx=10, pady=8, sticky="w"
+            )
 
         def ent(var, row, col, ph=""):
-            ctk.CTkEntry(self.form_frame, textvariable=var, width=180,
-                         font=("Segoe UI", 11), placeholder_text=ph
-                         ).grid(row=row, column=col, padx=10, pady=8, sticky="w")
+            ctk.CTkEntry(
+                self.form_frame,
+                textvariable=var,
+                width=180,
+                font=("Segoe UI", 11),
+                placeholder_text=ph,
+            ).grid(row=row, column=col, padx=10, pady=8, sticky="w")
 
         # Ligne 0 : Matricule | Nom | [Zone Recherche]
         lbl("MATRICULE : ", 0, 0)
@@ -55,16 +61,29 @@ class GestionEcran(ctk.CTkFrame):
 
         recherche_frame = ctk.CTkFrame(self.form_frame, fg_color="transparent")
         recherche_frame.grid(row=0, column=4, rowspan=2, padx=20, pady=8, sticky="nsew")
-        
-        ctk.CTkEntry(recherche_frame, placeholder_text="Mot clé...",
-                     textvariable=self.var_recherche, width=140,
-                     font=("Segoe UI", 11)).grid(row=0, column=0, padx=(0, 5), pady=(0, 5))
-        ctk.CTkComboBox(recherche_frame, values=["Matricule", "Nom"],
-                        variable=self.filtre_recherche, width=100,
-                        font=("Segoe UI", 11)).grid(row=0, column=1, pady=(0, 5))
-        ctk.CTkButton(recherche_frame, text="OK", command=self.action_rechercher,
-                      fg_color="#89b4fa", text_color="black",
-                      font=("Segoe UI", 12, "bold")).grid(row=1, column=0, columnspan=2, sticky="ew")
+
+        ctk.CTkEntry(
+            recherche_frame,
+            placeholder_text="Mot clé...",
+            textvariable=self.var_recherche,
+            width=140,
+            font=("Segoe UI", 11),
+        ).grid(row=0, column=0, padx=(0, 5), pady=(0, 5))
+        ctk.CTkComboBox(
+            recherche_frame,
+            values=["Matricule", "Nom"],
+            variable=self.filtre_recherche,
+            width=100,
+            font=("Segoe UI", 11),
+        ).grid(row=0, column=1, pady=(0, 5))
+        ctk.CTkButton(
+            recherche_frame,
+            text="OK",
+            command=self.action_rechercher,
+            fg_color="#89b4fa",
+            text_color="black",
+            font=("Segoe UI", 12, "bold"),
+        ).grid(row=1, column=0, columnspan=2, sticky="ew")
 
         # Ligne 1 : Prénom | Classe
         lbl("PRÉNOM : ", 1, 0)
@@ -82,15 +101,23 @@ class GestionEcran(ctk.CTkFrame):
         lbl("TÉLÉPHONE : ", 3, 0)
         ent(self.var_tel, 3, 1)
         lbl("CYCLE : ", 3, 2)
-        ctk.CTkComboBox(self.form_frame, values=["Primaire", "Collège", "Lycée", "Université"],
-                        variable=self.var_cyc, width=180,
-                        font=("Segoe UI", 11)).grid(row=3, column=3, padx=10, pady=8, sticky="w")
+        ctk.CTkComboBox(
+            self.form_frame,
+            values=["Primaire", "Collège", "Lycée", "Université"],
+            variable=self.var_cyc,
+            width=180,
+            font=("Segoe UI", 11),
+        ).grid(row=3, column=3, padx=10, pady=8, sticky="w")
 
         # Ligne 4 : Sexe | Situation
         lbl("SEXE : ", 4, 0)
-        ctk.CTkComboBox(self.form_frame, values=["Masculin", "Féminin"],
-                        variable=self.var_sex, width=180,
-                        font=("Segoe UI", 11)).grid(row=4, column=1, padx=10, pady=8, sticky="w")
+        ctk.CTkComboBox(
+            self.form_frame,
+            values=["Masculin", "Féminin"],
+            variable=self.var_sex,
+            width=180,
+            font=("Segoe UI", 11),
+        ).grid(row=4, column=1, padx=10, pady=8, sticky="w")
         lbl("SITUATION : ", 4, 2)
         ent(self.var_sit, 4, 3, "/9 mois")
 
@@ -112,21 +139,56 @@ class GestionEcran(ctk.CTkFrame):
         self.btn_frame.pack(pady=10)
 
         boutons = [
-            {"text": "Ajouter",   "color": "#a6e3a1", "command": self.action_ajouter,   "text_color": "black"},
-            {"text": "Modifier",  "color": "#f9e2af", "command": self.action_modifier,  "text_color": "black"},
-            {"text": "Supprimer", "color": "#f38ba8", "command": self.action_supprimer, "text_color": "black"},
-            {"text": "RETOUR",    "color": "#45475a", "command": self.action_retour,    "text_color": "white"},
-            {"text": "Afficher",  "color": "#b4befe", "command": self.action_afficher,  "text_color": "black"},
-            {"text": "Annuler",   "color": "#6c7086", "command": self.reinitialiser,    "text_color": "white"},
+            {
+                "text": "Ajouter",
+                "color": "#a6e3a1",
+                "command": self.action_ajouter,
+                "text_color": "black",
+            },
+            {
+                "text": "Modifier",
+                "color": "#f9e2af",
+                "command": self.action_modifier,
+                "text_color": "black",
+            },
+            {
+                "text": "Supprimer",
+                "color": "#f38ba8",
+                "command": self.action_supprimer,
+                "text_color": "black",
+            },
+            {
+                "text": "RETOUR",
+                "color": "#45475a",
+                "command": self.action_retour,
+                "text_color": "white",
+            },
+            {
+                "text": "Afficher",
+                "color": "#b4befe",
+                "command": self.action_afficher,
+                "text_color": "black",
+            },
+            {
+                "text": "Annuler",
+                "color": "#6c7086",
+                "command": self.reinitialiser,
+                "text_color": "white",
+            },
         ]
 
         for i, b in enumerate(boutons):
             row_idx = i // 3
             col_idx = i % 3
-            ctk.CTkButton(self.btn_frame, text=b["text"], fg_color=b["color"],
-                          text_color=b["text_color"], width=120,
-                          font=("Segoe UI", 12, "bold"),
-                          command=b["command"]).grid(row=row_idx, column=col_idx, padx=10, pady=5)
+            ctk.CTkButton(
+                self.btn_frame,
+                text=b["text"],
+                fg_color=b["color"],
+                text_color=b["text_color"],
+                width=120,
+                font=("Segoe UI", 12, "bold"),
+                command=b["command"],
+            ).grid(row=row_idx, column=col_idx, padx=10, pady=5)
 
         # --- TABLEAU ---
         self.tree_frame = ctk.CTkFrame(self)
@@ -143,14 +205,29 @@ class GestionEcran(ctk.CTkFrame):
     # ================= LOGIQUE =================
 
     def charger_donnees_depuis_db(self, donnees_filtrees=None):
-        liste_eleves = (donnees_filtrees if donnees_filtrees is not None
-                        else self.eleve_controller.recuperer_tous_les_eleves())
+        liste_eleves = (
+            donnees_filtrees
+            if donnees_filtrees is not None
+            else self.eleve_controller.recuperer_tous_les_eleves()
+        )
 
         colonnes_db = (
-            list(liste_eleves[0].keys()) if liste_eleves
-            else ["id", "nom", "prenom", "date_naissance", "email", "telephone",
-                  "adresse", "classe", "date_inscription", "matricule",
-                  "cycle", "situation_financiere"]
+            list(liste_eleves[0].keys())
+            if liste_eleves
+            else [
+                "id",
+                "nom",
+                "prenom",
+                "date_naissance",
+                "email",
+                "telephone",
+                "adresse",
+                "classe",
+                "date_inscription",
+                "matricule",
+                "cycle",
+                "situation_financiere",
+            ]
         )
 
         self.tree["columns"] = colonnes_db
@@ -215,8 +292,7 @@ class GestionEcran(ctk.CTkFrame):
     def action_modifier(self):
         if self.id_eleve_selectionne is None:
             messagebox.showwarning(
-                "Sélection requise",
-                "Veuillez sélectionner un élève dans le tableau."
+                "Sélection requise", "Veuillez sélectionner un élève dans le tableau."
             )
             return
 
@@ -236,13 +312,12 @@ class GestionEcran(ctk.CTkFrame):
     def action_supprimer(self):
         if self.id_eleve_selectionne is None:
             messagebox.showwarning(
-                "Sélection requise",
-                "Veuillez sélectionner un élève dans le tableau."
+                "Sélection requise", "Veuillez sélectionner un élève dans le tableau."
             )
             return
         confirme = messagebox.askyesno(
             "Confirmation",
-            "Êtes-vous sûr de vouloir supprimer définitivement cet élève ?"
+            "Êtes-vous sûr de vouloir supprimer définitivement cet élève ?",
         )
         if confirme:
             succes, message = self.eleve_controller.supprimer_eleve(
@@ -259,7 +334,6 @@ class GestionEcran(ctk.CTkFrame):
         terme = self.var_recherche.get().strip()
         filtre = self.filtre_recherche.get()
 
-        # Champ vide → on réaffiche tout sans message d'erreur
         if not terme:
             self.charger_donnees_depuis_db()
             return
@@ -271,6 +345,7 @@ class GestionEcran(ctk.CTkFrame):
 
         if not resultat:
             messagebox.showinfo("Recherche", "Aucun résultat trouvé.")
+            return  # ← on ne touche pas au tableau
 
         self.charger_donnees_depuis_db(donnees_filtrees=resultat)
 
@@ -281,9 +356,17 @@ class GestionEcran(ctk.CTkFrame):
 
     def reinitialiser(self):
         self.id_eleve_selectionne = None
-        for v in [self.var_mat, self.var_nom, self.var_pre, self.var_cla,
-                  self.var_adr, self.var_mail, self.var_tel, self.var_sit,
-                  self.var_recherche]:
+        for v in [
+            self.var_mat,
+            self.var_nom,
+            self.var_pre,
+            self.var_cla,
+            self.var_adr,
+            self.var_mail,
+            self.var_tel,
+            self.var_sit,
+            self.var_recherche,
+        ]:
             v.set("")
         self.var_cyc.set("Lycée")
         self.var_sex.set("Masculin")
@@ -293,4 +376,5 @@ class GestionEcran(ctk.CTkFrame):
 
     def action_retour(self):
         from view.connexion_ecran import ConnexionEcran
+
         self.controller.show_frame(ConnexionEcran)
