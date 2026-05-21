@@ -44,7 +44,7 @@ class GestionEleves(ctk.CTk):
         self.form_frame = ctk.CTkFrame(self, fg_color="#2b2b3b", corner_radius=15)
         self.form_frame.pack(padx=20, pady=10, fill="x")
 
-        # Ligne 0 : MATRICULE, NOM et RECHERCHE
+        
         ctk.CTkLabel(self.form_frame, text="MATRICULE :", font=("Arial", 11, "bold")).grid(row=0, column=0, padx=10, pady=10, sticky="w")
         ctk.CTkEntry(self.form_frame, textvariable=self.var_mat, width=160).grid(row=0, column=1, padx=10, pady=10)
 
@@ -100,9 +100,9 @@ class GestionEleves(ctk.CTk):
         self.tree_frame = ctk.CTkFrame(self)
         self.tree_frame.pack(padx=20, pady=10, fill="both", expand=True)
 
-        cols = ("id", "nom", "pre", "cla", "sex", "cyc", "sit")
+        cols = ("id", "nom", "pre", "cla", "sex", "cyc", "sit", "Mat")
         self.tree = ttk.Treeview(self.tree_frame, columns=cols, show="headings")
-        entetes = ["ID", "NOM", "PRÉNOM", "CLASSE", "SEXE", "CYCLE", "SOLDE"]
+        entetes = ["ID", "NOM", "PRÉNOM", "CLASSE", "SEXE", "CYCLE", "SOLDE", "MATRICULE"]
         for col, head in zip(cols, entetes):
             self.tree.heading(col, text=head)
             self.tree.column(col, width=100, anchor="center")
@@ -131,7 +131,7 @@ class GestionEleves(ctk.CTk):
                         sex = r[12] if len(r) > 12 else (r[5] if len(r) > 5 else "") # Fallback si colonnes décalées
                         cyc = r[10] if len(r) > 10 else ""
                         sit = r[11] if len(r) > 11 else ""
-                        
+                        Mat = r[12] if len(r) > 12 else ""
                         self.tree.insert("", "end", values=(id_e, nom, pre, cla, sex, cyc, sit))
             except Exception as e:
                 print(f"Erreur lors du chargement : {e}")
